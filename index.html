@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HBD Shazia</title>
+    <style>
+        :root {
+            --pink-bg: #ffe4e1; /* Light Pink / Misty Rose */
+            --accent: #ff4d6d;
+            --text-color: #4a4a4a;
+        }
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: var(--pink-bg);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+        #container {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .section { display: none; animation: fadeIn 0.8s ease; }
+        .section.active { display: block; }
+
+        button {
+            background: var(--accent);
+            color: white; border: none;
+            padding: 15px 30px; border-radius: 25px;
+            font-size: 16px; cursor: pointer;
+            margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Elements for specific steps */
+        .banner { font-size: 22px; color: #d63384; font-weight: bold; margin-bottom: 20px; }
+        .balloon { font-size: 40px; position: absolute; bottom: -50px; animation: floatUp 4s linear forwards; }
+        .cake-img { width: 150px; margin-top: 20px; border-radius: 10px; }
+        .message-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px; border-radius: 15px;
+            line-height: 1.6; border: 1px solid #ffb6c1;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes floatUp { to { transform: translateY(-110vh); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <audio id="music"><source src="aud.mp3" type="audio/mp3"></audio>
+
+    <div id="container">
+        <div id="step1" class="section active">
+            <h1>It's Your Special Day! ✨</h1>
+            <button onclick="nextStep(2)">Wanna see what I made?</button>
+        </div>
+
+        <div id="step2" class="section">
+            <button onclick="playMusic()">Play Music 🎵</button>
+        </div>
+
+        <div id="step3" class="section">
+            <div class="banner">Happy Birthday!</div>
+            <button onclick="nextStep(4)">Decorate ✨</button>
+        </div>
+
+        <div id="step4" class="section">
+            <button onclick="flyBalloons()">Fly the Balloons 🎈</button>
+        </div>
+
+        <div id="step5" class="section">
+            <button onclick="showCake()">Let's Cut the Cake 🎂</button>
+            <div id="cake-area"></div>
+        </div>
+
+        <div id="step6" class="section">
+            <div class="message-box">
+                <p><strong>Happy Birthday Shazia🎉</strong></p>
+                <p>Re-re nang-la khon ma-yong na yod se sems yod💕</p>
+                <p style="font-size: 12px; opacity: 0.7;">(I hope this is correct!)</p>
+                <p>But I hope ham hamesha acche terms pe rahe.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+        }
+
+        function playMusic() {
+            document.getElementById('music').play();
+            nextStep(3);
+        }
+
+        function flyBalloons() {
+            for(let i=0; i<15; i++) {
+                setTimeout(() => {
+                    let b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.innerHTML = '🎈';
+                    b.style.left = Math.random() * 100 + 'vw';
+                    document.body.appendChild(b);
+                }, i * 300);
+            }
+            setTimeout(() => nextStep(5), 4000);
+        }
+
+        function showCake() {
+            document.getElementById('cake-area').innerHTML = '<img src="cake.png" class="cake-img" alt="Birthday Cake">';
+            setTimeout(() => nextStep(6), 2000);
+        }
+    </script>
+</body>
+</html>
+
